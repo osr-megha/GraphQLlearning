@@ -1,0 +1,178 @@
+--------
+
+query getAllUsers{
+  users{
+    _id
+    firstName
+    lastName
+    email
+  }
+}
+
+-----------------
+
+query getAllQuotes{
+  quotes{
+    name
+    by
+  }
+}
+
+----------------
+query getUserById{
+  user(_id:111){
+    _id
+    firstName
+    lastName
+    email
+    quotes{
+      name
+    }
+  }
+}
+---------------
+query getUserById{
+  user(_id:111){
+    _id
+    firstName
+    lastName
+    email
+  }
+}
+
+
+----------------------- 
+---below is a generic query means it has no hardcodings -----
+
+query getUserById($userid:ID!){
+  user(_id:$userid){
+    _id
+    firstName
+    lastName
+    email
+    quotes{
+      name
+    }
+  }
+}
+
+in Query Variable - enter details
+
+{
+  "userid": "222"
+}
+
+outcome: 
+{
+  "data": {
+    "user": {
+      "_id": "222",
+      "firstName": "bibin",
+      "lastName": "joseph",
+      "email": "bibin.joseph@def.com",
+      "quotes": [
+        {
+          "name": "If that happens, dont touch the code"
+        }
+      ]
+    }
+  }
+}
+--------------------------------
+
+query getQuoteByUser{
+  iquote(by:"111"){
+    name
+    by
+  }
+}
+
+--------------------------
+with no hard coding
+--------
+query getQuoteByUser($quotesby:ID!){
+  iquote(by:$quotesby){
+    name
+    by
+  }
+}
+ in Query Variable enter -
+
+ {
+  "quotesby": "111"
+}
+
+outcome - 
+{
+  "data": {
+    "iquote": [
+      {
+        "name": "I turn coffee into code",
+        "by": "111"
+      }
+    ]
+  }
+}
+
+---------------------------------
+::Note - here adding a new user - "user" mentioned before signupUserDummy is being used as for naming purpose simplicity
+
+mutation createUser($userNew:UserInput!){
+  user:signupUserDummy(userNew:$userNew){
+    _id
+    email
+    firstName
+    lastName
+  }
+}
+
+#in Query Variable write following --- 
+
+{
+  "userNew": {
+    "firstName":"suman", 
+    "lastName":"sharma", 
+    "email":"suman.sharma@email.com",
+    "password":"sum123"
+  }
+}
+
+#outcome is 
+{
+  "data": {
+    "user": {
+      "_id": "024039f40d",
+      "email": "suman.sharma@email.com",
+      "firstName": "suman",
+      "lastName": "sharma"
+    }
+  }
+}
+
+---------------
+::Note below code for singin of existing user
+
+mutation signinUser($userSignin:UserSigninInput!){
+  user:signinUser(userSignin:$userSignin){
+    token
+  }
+}
+
+#in Query Variable write following --- 
+
+{
+  "userSignin": {
+    "email": "arin.jindal@email.com",
+    "password": "ari123"
+  }
+}
+
+#outcome is 
+
+{
+  "data": {
+    "user": {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIyZDg1OGU0YWJlZWE5YWY5YmIxMGQiLCJpYXQiOjE2ODAxNjYyNjB9.NB8iRfmlEuh4zGTMvn0uwperUntyjkxSYiNkFv4dRSo"
+    }
+  }
+}
