@@ -1,5 +1,5 @@
-import { useQuery } from "@apollo/client";
 import React from "react";
+import { useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { GET_MY_PROFILE } from "../gqloperations/queries";
 
@@ -7,7 +7,9 @@ const Profile = () => {
 
   const navigate = useNavigate();
 
-  const { loading, error, data } = useQuery(GET_MY_PROFILE);
+  const { loading, error, data } = useQuery(GET_MY_PROFILE,{
+    fetchPolicy:"cache-and-network"
+  });
 
   if(!localStorage.getItem("token")){
     navigate("/login")
@@ -32,7 +34,7 @@ const Profile = () => {
             border: "2px solid orange",
             marginTop: "10px",
           }}
-          alt=""
+          alt="pic"
         />
         <h5>
           {data.user.firstName} {data.user.lastName}

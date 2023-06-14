@@ -1,16 +1,14 @@
-import './App.css';
-
-import Navbar from './components/Navbar';
-import { routes } from "./routes"
-import { useRoutes } from 'react-router-dom';
+import "./App.css";
+import Navbar from "./components/Navbar";
+import { routes } from "./routes";
+import { useRoutes } from "react-router-dom";
 
 function App() {
-  const element = useRoutes(routes)
+  const element = useRoutes(routes);
   return (
     <div>
-    <Navbar/>
-    {element}
-
+      <Navbar />
+      {element}
     </div>
   );
 }

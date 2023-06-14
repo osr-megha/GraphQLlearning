@@ -16,8 +16,7 @@ const resolvers = {
     
     user: async (_, {_id}) =>  await User.findOne({_id}) ,
     
-    quotes: async () => await Quote.find({}).populate("by", "_id firstName"),
-
+    quotes:async ()=>await Quote.find({}).populate("by","_id firstName"),
     iquote: async (_, { by }) => await Quote.find({by}),
 
     myprofile: async (_,args,{userId}) => {

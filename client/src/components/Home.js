@@ -1,19 +1,21 @@
+import React from "react";
 import { useQuery } from "@apollo/client";
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { GET_ALL_QUOTES } from "../gqloperations/queries";
 
 const Home = () => {
-  const { loading, error, data } = useQuery(GET_ALL_QUOTES);
 
-  if (loading) return <h1>Loading...</h1>;
-  if (error) {
-    console.log(error.message, "Error");
-  }
-  if (data.quotes.length === 0) {
-    return <h2>No Quotes Available</h2>;
-    // console.log(data, "Data received")
-  }
+  const {loading,error,data} = useQuery(GET_ALL_QUOTES,{
+    fetchPolicy:"cache-and-network"
+    })
+
+   if(loading) return <h1>Loading</h1>
+   if(error){
+       console.log(error.message)
+   }
+   if(data.quotes.length === 0){
+    return  <h2>No Quotes available</h2>
+   }
+
 
   /** following code is for making network call using useEffect hook & without using apollo client */
   /** 
@@ -49,9 +51,9 @@ const Home = () => {
         return (
           <blockquote>
             <h6>{quote.name}</h6>
-            <Link to={`/profile/${quote.by._id}`}>
-              <p className="right-align">~{quote.by.firstName}</p>
-            </Link>
+            {/*<Link to={`/profile/${quote.by._id}`}>*/}
+            <p className="right-align">~{quote.by.firstName}</p>
+            {/*</Link>*/}
           </blockquote>
         );
       })}

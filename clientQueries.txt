@@ -20,7 +20,7 @@ query getAllQuotes{
 
 ----------------
 query getUserById{
-  user(_id:111){
+  user(_id:"111"){
     _id
     firstName
     lastName
@@ -32,7 +32,7 @@ query getUserById{
 }
 ---------------
 query getUserById{
-  user(_id:111){
+  user(_id:"111"){
     _id
     firstName
     lastName
@@ -90,8 +90,8 @@ query getQuoteByUser{
 --------------------------
 with no hard coding
 --------
-query getQuoteByUser($quotesby:ID!){
-  iquote(by:$quotesby){
+query getQuoteByUser($quoteby:ID!){
+  iquote(by:$quoteby){
     name
     by
   }
@@ -99,7 +99,7 @@ query getQuoteByUser($quotesby:ID!){
  in Query Variable enter -
 
  {
-  "quotesby": "111"
+  "quoteby": "111"
 }
 
 outcome - 
@@ -152,7 +152,7 @@ mutation createUser($userNew:UserInput!){
 ---------------
 ::Note below code for singin of existing user
 
-mutation signinUser($userSignin:UserSigninInput!){
+mutation SigninUser($userSignin:UserSigninInput!){
   user:signinUser(userSignin:$userSignin){
     token
   }
@@ -175,4 +175,8 @@ mutation signinUser($userSignin:UserSigninInput!){
       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIyZDg1OGU0YWJlZWE5YWY5YmIxMGQiLCJpYXQiOjE2ODAxNjYyNjB9.NB8iRfmlEuh4zGTMvn0uwperUntyjkxSYiNkFv4dRSo"
     }
   }
+}
+--------------
+mutation createQuote{
+  quote:createQuote(name:"i am another nice quote")
 }
