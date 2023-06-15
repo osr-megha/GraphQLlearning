@@ -5,7 +5,7 @@ import { GET_ALL_QUOTES } from "../gqloperations/queries";
 const Home = () => {
 
   const {loading,error,data} = useQuery(GET_ALL_QUOTES,{
-    fetchPolicy:"cache-and-network"
+    fetchPolicy:"network-only"
     })
 
    if(loading) return <h1>Loading</h1>

@@ -8,7 +8,7 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const { loading, error, data } = useQuery(GET_MY_PROFILE,{
-    fetchPolicy:"cache-and-network"
+    fetchPolicy:"network-only"
   });
 
   if(!localStorage.getItem("token")){
